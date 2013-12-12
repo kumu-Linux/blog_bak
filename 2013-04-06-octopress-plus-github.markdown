@@ -35,27 +35,27 @@ tags: Octopress
 ruby安装选项时选择`Add Ruby exectutables to your path`，如果安装时没有选择，则可以使用 `我的电脑` -- `属性` -- `高级系统设置` -- `环境变量`，添加**ruby命令路径**到系统环境变量即可，另外也要加入**git的命令路径**。
 
 对于Gem下载完成后，将其解压，如 D:\DevKit，然后在cmd窗口中执行如下命令安装：
-{% codeblock lang:cpp %}
+``` cpp
 D:
 cd DevKit
 ruby dk.rb init
 ruby dk.rb install
-{% endcodeblock %}
+```
 
 python安装完后执行如下安装
-{% codeblock lang:cpp %}
+``` cpp
 easy_install pygments
-{% endcodeblock %}
+```
 
 #### Octopress和相关插件安装
-{% codeblock lang:cpp %}
+``` cpp
 git clone git://github.com/imathis/octopress.git 
 cd octopress    
 ruby --version  #确保ruby安装版本为1.9.2
 gem install bundler rdoc
 bundle install
 rake install
-{% endcodeblock %}
+```
 
 执行rake install时可能出现如下错误
 	You have already activated rake 0.9.2.2, 
@@ -69,23 +69,23 @@ rake install
     创建 <USERNAME>.github.com 的仓库
 
 ### 相关操作
-{% codeblock lang:cpp %}
+``` cpp
 rake setup_github_pages # 配置 octopress 与 github 的连接
 rake generate 			# 生成静态文件
 rake preview 			# 在本机4000端口生成访问内容
 rake deploy 			# 发布文件到 github
-{% endcodeblock %}
+```
 
 执行rake generate可能产生如下错误
-{% codeblock lang:cpp %}
+``` cpp
 Liquid Exception: invalid byte sequence in GBK in page
-{% endcodeblock %}
+```
 
 **解决方法**： CMD命令窗口执行如下操作
-{% codeblock lang:cpp %}
+``` cpp
 set LANG=zh_CN.UTF-8 
 set LC_ALL=zh_CN.UTF-8
-{% endcodeblock %}
+```
 
 ### 参考
 * [sinosmond.github.io](http://sinosmond.github.io/blog/2012/03/12/install-and-deploy-octopress-to-github-on-windows7-from-scratch/)

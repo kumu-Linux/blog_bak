@@ -9,14 +9,14 @@ keywords: Linux,sed
 
 ## 问题重现
 因为sed -i /etc/sysconfig/selinux(selinux文件是/etc/selinux/config的软链接)配置文件重启SELINUX没有关闭，才发现原来sed -i是不能直接修改软链接文件的，如下我修改之后的后果：
-{% codeblock lang:python %}
+``` bash
 [root@node1 ~]# ll /etc/sysconfig/selinux   
 lrwxrwxrwx. 1 root root 19 2月  20 20:34 /etc/sysconfig/selinux -> /etc/selinux/config  
 [root@node1 ~]# sed -i "s/SELINUX=enforcing/SELINUX=disabled/g" /etc/sysconfig/selinux  
 [root@node1 ~]# ll /etc/sysconfig/selinux   
 -rw-r--r-- 1 root root 457 2月  20 22:50 /etc/sysconfig/selinux  
 [root@node1 ~]#   
-{% endcodeblock %}
+```
 
 <!--more-->
 
@@ -34,7 +34,7 @@ lrwxrwxrwx. 1 root root 19 2月  20 20:34 /etc/sysconfig/selinux -> /etc/selinux
 * --follow-symlinks is usually enough, and it is both faster and more secure.
 
 以上说明就不作过多解释了，说的很明显，看下面实例
-{% codeblock lang:python %}
+``` bash
 [root@node1 ~]# echo "test" >>test  
 [root@node1 ~]# ln -s ~/test ~/test_soft  
 [root@node1 ~]# ln ~/test ~/test_hard  
@@ -49,11 +49,11 @@ lrwxrwxrwx. 1 root root 19 2月  20 20:34 /etc/sysconfig/selinux -> /etc/selinux
 271656 -rw-r--r-- 1 root root 5 2月  20 23:05 test_hard  
 271657 -rw-r--r-- 1 root root 5 2月  20 23:06 test_soft  
 [root@node1 ~]#   
-{% endcodeblock %}
+```
 很明显如man中所说-i选项对软链接和硬链接都会使受到破坏,而-c选项则不会
 
 ## 问题解决
-{% codeblock lang:python %}
+``` bash
 [root@node1 ~]# rm -rf test*
 [root@node1 ~]# echo "test" >>test
 [root@node1 ~]# ln -s ~/test ~/test_soft
@@ -68,12 +68,12 @@ lrwxrwxrwx. 1 root root 19 2月  20 20:34 /etc/sysconfig/selinux -> /etc/selinux
 271653 -rw-r--r-- 2 root root  5 2月  20 23:11 test
 271653 -rw-r--r-- 2 root root  5 2月  20 23:11 test_hard
 271655 lrwxrwxrwx 1 root root 10 2月  20 23:08 test_soft -> /root/test
-{% endcodeblock %}
+```
 --follow-symlinks选项只对软链接有效，硬链接还是会被破坏，建议使用-c选项，这里就不举例了
 
 ## 问题延伸
 后来发现在RHEL5上运行相同的操作居然没有出现类似的现象，运行结果如下：
-{% codeblock lang:python %}
+``` bash
 $ echo "test" >> test
 $ ln -s ~/test ~/test1
 $ ll ~/test1
@@ -81,7 +81,7 @@ lrwxrwxrwx 1 sxkj sxkj 15 02-21 13:26 /home/sxkj/test1 -> /home/sxkj/test
 $ sed -i "s/test/test1/g" ~/test1
 $ ll ~/test1
 lrwxrwxrwx 1 sxkj sxkj 15 02-21 13:26 /home/sxkj/test1 -> /home/sxkj/test
-{% endcodeblock %}
+```
 
 经查是sed的版本不同造成的影响，RHEL5系列的还是使用老版本的sed，没有--follow-symlinks类似的选项，笔者之前实验的版本是RHEL6.3，所以出现之前的一系列问题了
 
