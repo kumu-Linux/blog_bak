@@ -9,12 +9,21 @@ keywords: OpenNebula4.4
 
 OpenNebula入门的PDF文档已可下载，[OpenNebula4.4入门配置](http://vdisk.weibo.com/s/EKoLFfHiE-oT/1387002741)，本博客连载更新相关内容
 
-## 环境说明
-因为CentOS6.4虚拟化有很大的一个提升，所以系统环境管理端和节点宿主机都采用CentOS6.4 x86_64
-
 <!--more-->
 
-## 软件包组成
+__本文内容目录组成如下__：
+
+*   [环境说明](#env)
+*   [软件包组成](#soft)
+*   [Server端安装和配置](#server)
+*   [节点端安装配置](#node_server)
+*   [添加节点](#node_add)
+    *   [onehost](#onehost)
+
+<h2 id="env">环境说明</h2>
+因为CentOS6.4虚拟化有很大的一个提升，所以系统环境管理端和节点宿主机都采用CentOS6.4 x86_64
+
+<h2 id="soft">软件包组成</h2>
 从OpenNebula官网下载[CentOS/RHEL 6](http://downloads.opennebula.org/packages/opennebula-4.4.0/CentOS-6/CentOS-6-opennebula-4.4.0-1.tar.gz)对应软件包或者加入OpenNebula源，直接下载软件包这里不再赘述，添加OpenNebula源方法如下：
 ``` bash
 # cat << EOT > /etc/yum.repos.d/opennebula.repo
@@ -42,7 +51,7 @@ opennebula-sunstone-4.4.0-1.x86_64.rpm  //OpenNebula网页使用界面
 opennebula-context-4.4.0-1.x86_64.rpm   //context组件
 ```
 
-## Server端安装和配置
+<h2 id="server">Server端安装和配置</h2>
 
 为解决一些依赖关系，安装之前可以激活epel源，因为测试为CentOS6.4，因此激活方式如下：
 ``` bash
@@ -165,7 +174,7 @@ __注__：测试过程中因为测试环境服务端时间不对，导致cookie�
 
 完成以上步骤之后，浏览器登陆 [http://ip:9869](http://ip:9869) 即可
 
-## 节点端安装配置
+<h2 id="node_server">节点端安装配置</h2>
 
 软件包下载见Server端安装章节，节点只需要安装以下两个软件  
     opennebula-node-kvm-4.4.0-1.x86_64.rpm  
@@ -247,10 +256,10 @@ $ chmod 400 .ssh/authorized_keys
 
 如此，Server端的oneadmin用户就可以无密码登陆节点oneadmin了。
 
-## 添加节点
+<h2 id="node_add">添加节点</h2>
 节点如此安装软件和配置之后便可以在Server端添加了，可以使用web添加，也可以使用命令添加。关于web界面的添加可以参考本人共享的pdf文档，这里不作具体的介绍，只介绍命令添加。
 
-### onehost命令
+<h3 id="onehost">onehost命令</h3>
 使用命令行添加主机也比较简单，这里使用的命令是__onehost__    
 
 使用onehost命令删除之前web创建的主机，如下：
