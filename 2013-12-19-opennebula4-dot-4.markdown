@@ -282,9 +282,9 @@ $ onehost list
    2 192.168.80.131  -           0       0 / 400 (0%)     0K / 3.7G (0%) on    
 ```
 
-  --im/-i:信息管理driver. 可选: kvm, xen, vmware, ec2, ganglia, dummy.
-  --vm/-v: 虚拟化管理driver. 可选: kvm, xen, vmware, ec2, dummy.
-  --net/-n: 虚拟网络driver. 可选: 802.1Q,dummy,ebtables,fw,ovswitch,vmware.
+    --im/-i:信息管理driver. 可选: kvm, xen, vmware, ec2, ganglia, dummy.
+    --vm/-v: 虚拟化管理driver. 可选: kvm, xen, vmware, ec2, dummy.
+    --net/-n: 虚拟网络driver. 可选: 802.1Q,dummy,ebtables,fw,ovswitch,vmware.
 
 查看主机的详细信息 __onehost show__
 ```
@@ -347,3 +347,5 @@ onehost还有两个选项,disable和enable，disable表示不再监控该物理�
 $ onehost disable 0
 $ onehost enable 0
 ```
+
+--EOF--
