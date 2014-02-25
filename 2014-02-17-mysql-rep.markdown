@@ -36,7 +36,7 @@ MySQL支持两种复制方式：基于行的复制和基于语句的复制，两
 
 * 1、主库把数据更改记录到二进制日志[Binary Log]中
 * 2、备库将主库上的日志复制到自己的中继日志[Relay Log]中
-* 3、备库读取终极日志的实践中，将其重放到备库数据之上
+* 3、备库读取中继日志中的事件，将其重放到备库数据之上
 
 <center><img src="/images/mysql_rep/mysql_rep1.jpg" /></center>
 
@@ -158,7 +158,7 @@ mysql> SHOW SLAVE STATUS\G
             Seconds_Behind_Master: 0
 ```
 
-<h2 id="repl6">线上服务器配置主从</h2>
+<h2 id="repl7">线上服务器配置主从</h2>
 
 很多情况下,一些主库已经运行很长时间了，需要做主从同步，这时从库还没有数据，那么就要把主的数据导入到从。
 
@@ -190,11 +190,13 @@ master-data默认值是1，加上之后会记录Position点并执行`CHANGE MAST
 
 <h2 id="repl8">一些重要的选项</h2>
 
-* [主]主库上二进制日志最重要的选项:sync_binlog，推荐设置成1，保证在服务器崩溃时不丢失事件，虽然会降低性能
-* [主从]innodb_flush_log_at_trx_commit根据实际情况设置
-* 二进制日志推荐使用指定命名，如log-bin=bin[主从]，中继日志指定命名relay-log=mysqld-relay-bin[从]
-* [从]skip_slave_start选项可以阻止备库崩溃后自动启动复制，预留时间修复
-* [从]read_only，可以阻止大部分用户更改非临时表，除了复制SQL线程和其它拥有超级权限的用户之外
+* [主]主库上二进制日志最重要的选项:`sync_binlog`，推荐设置成1，保证在服务器崩溃时不丢失事件，虽然会降低性能
+* [主从]`innodb_flush_log_at_trx_commit`根据实际情况设置
+* 二进制日志推荐使用指定命名，如`log-bin=bin`[主从]，中继日志指定命名`relay-log=mysqld-relay-bin`[从]
+* [从]`skip_slave_start`选项可以阻止备库崩溃后自动启动复制，预留时间修复
+* [从]`read_only`，可以阻止大部分用户更改非临时表，除了复制SQL线程和其它拥有超级权限的用户之外
+
+关于主从复制的一些问题，这里暂不讨论
 
 <h2 id="repl9">参考</h2>
 
