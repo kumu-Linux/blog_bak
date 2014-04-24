@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "OpenNebula kvm被ssh端口占用"
+title: "ssh X11Forawarding占用OpenNebula kvm端口"
 date: 2014-03-24 17:04
 comments: true
 categories: 虚拟化

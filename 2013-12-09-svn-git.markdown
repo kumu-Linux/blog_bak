@@ -25,7 +25,7 @@ chown git:git -R /home/git
 
 注意：如果是root用户执行的命令，需要修改权限如下
 ```
-chow -R git:git testrepo
+chown -R git:git testrepo
 ```
 
 * Client

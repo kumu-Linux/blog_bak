@@ -8,10 +8,9 @@ keywords: market,opennebula 3.8
 ---
 
 今天下午发现公司所有的OpenNebula Sunstone访问出错，而且错误界面关闭不了，严重影响操作
+<!--more-->
 
 <center><img src="/images/OpenNebula/OpenNebula_market_err.png" /></center>
-
-<!--more-->
 
 Firebug获知锁定错误为market插件
 
