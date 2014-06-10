@@ -72,13 +72,13 @@ $ mpstat -P ALL 1   # 查看单个cpu利用率情况，同`sar -P ALL 1`
 ```
 
 ``` bash
-$ while :; do ps eo pid,ni,pri,pcpu,psr,comm | \
+$ while :; do ps -eo pid,ni,pri,pcpu,psr,comm | \
 grep 'mysqld'; sleep 1 ;done # ps通过查看psr队列获取进程占用哪个cpu
 ```
 
 top也可以实时查看占用哪个cpu
 ``` bash
-$ top -p `pgrep mysql | xargs | tr " " ","` # 执行如下命令之后
+$ top -p `pgrep mysql | xargs | tr " " ","` # 执行如上命令之后输入`f`,然后输入`j`回车即可
 ```
 
 `pri`优先级动态值，`ni`为静态值，root用户可以调高nice优先级[-20~19]，-20为优先级最高，普通用户只能调低优先级，两者关系：`pri[new]=pri[old]+nice`
