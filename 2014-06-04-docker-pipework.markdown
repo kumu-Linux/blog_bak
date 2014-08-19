@@ -20,7 +20,7 @@ $ sudo cp -rp pipework/pipework /usr/local/bin/
 ### 安装相应依赖软件
  
 ``` bash
-$ sudo apt-get install apring bridge-utils -y
+$ sudo apt-get install arping bridge-utils -y
 ```
  
 ### 桥接网络
